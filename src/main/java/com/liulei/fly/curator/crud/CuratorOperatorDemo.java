@@ -51,7 +51,8 @@ public class CuratorOperatorDemo {
             }
         },service).forPath("/test/test1/test1-1", "1231".getBytes());
         countDownLatch.await();
-        service.shutdown();
+        service.shutdown();//关闭线程，无其他意义
+        //关闭客户端，服务器心跳检测断开连接后，临时节点会失效
         curatorFramework.close();
         TimeUnit.SECONDS.sleep(5);
         curatorFramework = CuratorClientUtils.getInstance();
